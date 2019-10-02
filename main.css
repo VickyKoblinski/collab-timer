@@ -15,5 +15,7 @@ div.outer-container {
 }
 
 div.outer-container div#timer-container {
+    font-family: 'Fjalla One', serif;
     margin: 0 0 10px 0;
+    font-size: 30pt;
 }

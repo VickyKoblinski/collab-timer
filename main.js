@@ -1,6 +1,5 @@
-{console.log('Hello world')
-let time, seconds, fullSec, fullMin, fullHour, clicked, turned;
-const frame = 60;
+let seconds, fullSec, fullMin, fullHour, timerRunning, minSwitch;
+const fps = 60;
 
 const DOMS = {
     startBtn: "#btn-start",
@@ -9,21 +8,25 @@ const DOMS = {
     seconds: "#seconds",
 }
 
+/**
+ * Formats the numbers to look proper, also displays the numbers to the webpage
+ * @param {number} number 
+ * @param {DOM String} time 
+ */
 const formatNumber = (number, time) =>
 {
-    if (typeof(number) === 'number' && !NaN) {
-        if (number < 10) {
-            document.querySelector(time).textContent = `0${number}`;
-        } else {
-            document.querySelector(time).textContent = `${number}`;
-        }
+    if (typeof(number) === 'number') {
+        document.querySelector(time).textContent = number < 10 ? `0${number}` : `${number}`;
     } else {
         document.querySelector(time).textContent = `00`;
     }
 }
 
+/**
+ * Counts the seconds, then resets to 0 when it reaches 60
+ */
 const countSec = () => {
-    fullSec = Math.floor(seconds/frame)
+    fullSec = Math.floor(seconds/fps)
     seconds++;
     if (fullSec === 60){
         seconds = 0;
@@ -31,50 +34,56 @@ const countSec = () => {
     formatNumber(fullSec, DOMS.seconds);
 }
 
+/**
+ * Counts the minutes, then reset to 0 when it reaches 60
+ */
 const countMin = () => {
     fullMin++;
-    turned = false;
+    minSwitch = false;
     if (fullMin === 60) {
         fullMin = 0;
-        turned = true;
+        minSwitch = true;
     }
     formatNumber(fullMin, DOMS.minutes);
 }
+
+/**
+ * Counts the hours, does not reset
+ */
 const countHour = () => {
     fullHour++;
-    if (fullHour === 24) {
-        fullHour = 0;
-    }
     formatNumber(fullHour, DOMS.hours);
 }
 
+/**
+ * Sets up event listeners
+ */
 const setupEventListeners = () => {
     seconds = 0;
     miuntes = 0;
     fullMin = 0;
     fullHour = 0;
-    clicked = false;
+    timerRunning = false;
     document.querySelector(DOMS.startBtn).addEventListener('click', () => {
-        if(!clicked){ 
+        if(!timerRunning){ 
             timer();
         }
-        clicked = true;
+        timerRunning = true;
     });
 }
 
+/**
+ * A function using requestAnimationFrame to gather the data to plug into the other functions
+ */
 const timer = () => {
-    time = requestAnimationFrame(timer);
+    requestAnimationFrame(timer);
     countSec();
     if(fullSec === 60) {
         countMin();
-        if (turned) {
+        if (minSwitch) {
             countHour();
         }
     }
-   // console.log(fullSec);
-    //console.log(fullMin);
-    console.log(fullHour);
 }
 
 setupEventListeners();
-}

@@ -1,6 +1,8 @@
-let seconds, fullSec, fullMin, fullHour, timerRunning, minSwitch;
 const fps = 60;
 
+/**
+ * An object to hold DOM strings
+ */
 const DOMS = {
     startBtn: "#btn-start",
     hours: "#hours",
@@ -23,50 +25,60 @@ const formatNumber = (number, time) =>
 }
 
 /**
- * Counts the seconds, then resets to 0 when it reaches 60
+ * Calculates the seconds, then returns seconds, minutes, and hours in an object
+ * @param {number} frames 
+ * @param {number} minutes 
+ * @param {number} hours 
+ * @returns {object} result
  */
-const countSec = () => {
-    fullSec = Math.floor(seconds/fps)
-    seconds++;
-    if (fullSec === 60){
-        seconds = 0;
+const countSec = (frames, minutes, hours) => {
+    frames++;
+    const seconds = Math.floor(frames/fps)
+    if (seconds >= 60){
+        frames = 0;
+        const result = countMin(minutes, hours);
+        hours = result.hours
+        minutes = result.minutes
     }
-    formatNumber(fullSec, DOMS.seconds);
+    formatNumber(seconds, DOMS.seconds);
+    return { frames, minutes, hours };
 }
 
 /**
- * Counts the minutes, then reset to 0 when it reaches 60
+ * calculates the minutes, then returns hours and minutes to the next in line
+ * @param {number} minutes 
+ * @param {number} hours 
+ * @returns {object} 
  */
-const countMin = () => {
-    fullMin++;
-    minSwitch = false;
-    if (fullMin === 60) {
-        fullMin = 0;
-        minSwitch = true;
+const countMin = (minutes, hours) => {
+    minutes++;
+    if (minutes >= 60) {
+        minutes = 0;
+        hours = countHour(hours);
     }
-    formatNumber(fullMin, DOMS.minutes);
+    formatNumber(minutes, DOMS.minutes);
+    return { minutes, hours };
 }
 
 /**
- * Counts the hours, does not reset
+ * Calculates the hours, then returns it to the next in line
+ * @param {number} hours 
+ * @returns {number} hours
  */
-const countHour = () => {
-    fullHour++;
-    formatNumber(fullHour, DOMS.hours);
+const countHour = (hours) => {
+    hours++;
+    formatNumber(hours, DOMS.hours);
+    return hours;
 }
 
 /**
  * Sets up event listeners
  */
 const setupEventListeners = () => {
-    seconds = 0;
-    miuntes = 0;
-    fullMin = 0;
-    fullHour = 0;
-    timerRunning = false;
+    let timerRunning = false;
     document.querySelector(DOMS.startBtn).addEventListener('click', () => {
         if(!timerRunning){ 
-            timer();
+            timer(0, 0, 0);
         }
         timerRunning = true;
     });
@@ -75,15 +87,9 @@ const setupEventListeners = () => {
 /**
  * A function using requestAnimationFrame to gather the data to plug into the other functions
  */
-const timer = () => {
-    requestAnimationFrame(timer);
-    countSec();
-    if(fullSec === 60) {
-        countMin();
-        if (minSwitch) {
-            countHour();
-        }
-    }
+const timer = (frames, minutes, hours) => {
+    const finalResult = countSec(frames, minutes, hours);
+    requestAnimationFrame(timer.bind(null, finalResult.frames, finalResult.minutes, finalResult.hours));
 }
 
 setupEventListeners();

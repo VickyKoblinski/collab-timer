@@ -78,7 +78,7 @@ import "./main.css"
         },
         timeDiffFunc() {
             this.diffTime = (this.updatedTime - this.laps[this.currentIndx].start) + this.timeDiff;
-            timeObj = {
+            let timeObj = {
                 sec: Number(this.diffTime / 1000),
                 min: Number(this.diffTime / (1000 * 60)),
                 hour: Number(this.diffTime / (1000 * 60 * 60))
@@ -96,9 +96,9 @@ import "./main.css"
             } else {
                 _diff = this.timeDiffFunc()
             }
-            _sec = this.countSec(_diff.sec)
-            _min = this.countMin(_diff.min)
-            _hour = this.countHour(_diff.hour) 
+            let _sec = this.countSec(_diff.sec)
+            let _min = this.countMin(_diff.min)
+            let _hour = this.countHour(_diff.hour) 
         },
         update() {
             this.updatedTime = new Date().getTime()

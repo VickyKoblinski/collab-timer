@@ -1,3 +1,5 @@
+import "./main.css"
+
 (function() {
     const timer = {
         DOMS: {

@@ -9,3 +9,5 @@ There are so many timers out there. Why would you use this one? Well, let me tel
 If it sounds awesome to you, it is because IT REALLY IS! Want to be part of the gang? Clone this repo and start contributing!
 
 # 👍 This is Awesome! 
+### Now you can start and stop the timer as well as Reset the timeer!
+### Stop the timer before you reset the timer or else you will get a alert.

@@ -128,7 +128,6 @@ import "./main.css"
                 start:  new Date().getTime()
             }) - 1
             
-            
             this.timeStart = new Date().getTime()
             
             this.interval = setInterval(() => { this.update()}, this.intervalTime)

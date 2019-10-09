@@ -1,0 +1,30 @@
+{
+  "name": "collab-timer",
+  "version": "1.0.0",
+  "description": "## Summary There are so many timers out there. Why would you use this one? Well, let me tell you, this is the WORLD'S BEST TIMER. Easy and simple use with a few clicks of a button. Carefully crafted and designed by a handful of carefully selected web developers from all walks of life. If it sounds awesome to you, it is because IT REALLY IS! Want to be part of the gang? Clone this repo and start contributing!",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VickyKoblinski/collab-timer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VickyKoblinski/collab-timer/issues"
+  },
+  "homepage": "https://github.com/VickyKoblinski/collab-timer#readme",
+  "devDependencies": {
+    "css-loader": "^3.2.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.2"
+  }
+}
